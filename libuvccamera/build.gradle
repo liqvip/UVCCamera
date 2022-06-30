@@ -22,7 +22,6 @@ apply plugin: 'com.android.library'
  *  may have a different license, see the respective files.
  */
 
-import org.apache.tools.ant.taskdefs.condition.Os
 
 android {
 	compileSdkVersion versionCompiler
@@ -34,7 +33,7 @@ android {
 	}
 
     defaultConfig {
-        minSdkVersion 14
+        minSdkVersion 16
 		targetSdkVersion versionTarget
     }
 
@@ -61,10 +60,12 @@ String getNdkBuildPath() {
 	properties.load(project.rootProject.file('local.properties').newDataInputStream())
 	def ndkBuildingDir = properties.getProperty("ndk.dir")
 	def ndkBuildPath = ndkBuildingDir
-	if (Os.isFamily(Os.FAMILY_WINDOWS)) {
+	if (System.properties['os.name'].toLowerCase().contains('windows')) {
 		ndkBuildPath = ndkBuildingDir + '/ndk-build.cmd'
+		println "it's Windows"
 	} else {
 		ndkBuildPath = ndkBuildingDir + '/ndk-build'
+		println "it's not Windows"
 	}
 	return ndkBuildPath
 }
