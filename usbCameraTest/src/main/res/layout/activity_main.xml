@@ -36,6 +36,11 @@
         android:layout_gravity="center"
         android:background="#ff000000" />
 
+    <cn.zhut.facelib.widget.FaceRectView
+        android:id="@+id/view_face_info"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
     <ImageButton
         android:id="@+id/camera_button"
         android:layout_width="@dimen/button_size"
