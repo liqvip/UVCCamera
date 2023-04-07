@@ -84,12 +84,15 @@ public class SimpleUVCCameraTextureView extends TextureView	// API >= 14
 			final double viewAspectRatio = (double)initialWidth / initialHeight;
 			final double aspectDiff = mRequestedAspect / viewAspectRatio - 1;
 
+			// 指定的纵横比与实际宽高比不一样
 			if (Math.abs(aspectDiff) > 0.01) {
-				if (aspectDiff > 0) {
+				if (aspectDiff > 0) {// 指定的宽高比数值更大
 					// width priority decision
+                    // view 宽度不变，缩小 view 的高度达到指定的纵横比
 					initialHeight = (int) (initialWidth / mRequestedAspect);
-				} else {
+				} else {	// 指定的宽高比数值更小
 					// height priority decison
+					// view 的高度不变，缩小 view 的宽度达到指定的纵横比
 					initialWidth = (int) (initialHeight * mRequestedAspect);
 				}
 				initialWidth += horizPadding;

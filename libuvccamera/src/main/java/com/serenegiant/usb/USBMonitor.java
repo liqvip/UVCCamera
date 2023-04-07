@@ -53,7 +53,7 @@ import com.serenegiant.utils.HandlerThreadHandler;
 
 public final class USBMonitor {
 
-	private static final boolean DEBUG = false;	// TODO set false on production
+	private static final boolean DEBUG = true;	// TODO set false on production
 	private static final String TAG = "USBMonitor";
 
 	private static final String ACTION_USB_PERMISSION_BASE = "com.serenegiant.USB_PERMISSION.";
@@ -527,6 +527,8 @@ public final class USBMonitor {
 				}
 				m = mHasPermissions.size();
 			}
+			// n:过滤后的所有 usb 设备
+			// m:有权限访问的 usb 设备
 			if ((n > mDeviceCounts) || (m > hasPermissionCounts)) {
 				mDeviceCounts = n;
 				if (mOnDeviceConnectListener != null) {
@@ -535,6 +537,7 @@ public final class USBMonitor {
 						mAsyncHandler.post(new Runnable() {
 							@Override
 							public void run() {
+								if(DEBUG) Log.v(TAG, "onAttach: " + device.toString());
 								mOnDeviceConnectListener.onAttach(device);
 							}
 						});
@@ -602,7 +605,7 @@ public final class USBMonitor {
 
 	private final void processDettach(final UsbDevice device) {
 		if (destroyed) return;
-		if (DEBUG) Log.v(TAG, "processDettach:");
+		if (DEBUG) Log.v(TAG, "processDettach:" + device.toString());
 		if (mOnDeviceConnectListener != null) {
 			mAsyncHandler.post(new Runnable() {
 				@Override
